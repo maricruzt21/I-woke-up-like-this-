@@ -15,7 +15,7 @@
         var backLayer;
         var middleLayer;
         var frontLayer;
-        var ground;
+        var groundLayer;
         var girlImage;
         var girlX;
         var girlY;
@@ -37,12 +37,13 @@
             frontLayer = new Layer(4, 0, 138, 184, sW*0.0875, sW*0.1125, sL*0.3475, sL*0.475);
             frontLayer.addBuilding();
 
-            ground(4, 34, 87, 34, 1900, 1900, 670, 700);
-            ground.addBuilding();
+            groundLayer = new Layer(4, 34, 87, 34, 1900, 1900, 670, 700);
+            groundLayer.addBuilding();
 
             obstacles = new Layer(7, 255, 25, 117, sW*0.0875, sW*0.0875, sL*0.1075, sL*0.155); //paramenters for the closest layer
+            // obstacles.addBlock(); // TODO: this is the function we want instead of the below
             obstacles.addBuilding();
-            
+
             player = new Player(100, 550, 200, 300);
 
             girlImage = loadImage("girlshy.jpg");
@@ -61,11 +62,11 @@
             frontLayer.drawBuildings();
             frontLayer.moveBuildings();
 
-            ground.drawBuildings();
-            ground.moveBuildings();
+            // groundLayer.drawBuildings();
+            // groundLayer.moveBuildings();
 
-            // console.log("obstacles");
             obstacles.drawBuildings();
+            // obstacles.drawBlocks(); // TODO: this is the function we have to write instead of below
             obstacles.moveBlock();  
 
             player.draw();
@@ -73,7 +74,7 @@
 
             if (obstacles.hitAll(player.xposition, player.yposition)) {
                 // if there was a hit
-                alert("WHOOPS!YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year");
+                console.log("WHOOPS!YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year");
             }
         }
 
@@ -165,8 +166,7 @@
                 g = green;
                 b = blue;
                 xposition= x; // ^^
-                yposition = y; //^^
-                            
+                yposition = y; //^^     
             }
             
             void drawBuilding(){
@@ -185,7 +185,8 @@
             void move(speed){// moves this building (you can add parameters)
                 xposition = xposition - speed;
             }
-            void hit(x, y) {
+
+            boolean hit(x, y) {
                 // x, y is the girl's coordinates
                 // returns true if hit
                 // returns false if not
@@ -199,8 +200,33 @@
                 return collision;
             }
 
-    } // end of Building class   
+        } // end of Building class   
 
+        class Block {
+            var xposition;
+            var yposition;
+            var width;
+            var height;
+            var img;
+
+            Block (i, x, y, w, h) {
+                // constructor
+                img = i; // an image passed to the constructor 
+                xposition = x;
+                yposition = y;
+                width = w;
+                height = h;
+            }
+   
+            void drawBlock() {
+                // draws the image for the blocks
+                image(img, xposition, yposition, width, height);     
+            }
+
+            void moveBlock() {
+                // moves the block // EXACTLY LIKE MOVEBUILDING! :)
+            }
+        }
 
         class Layer {// declare your variables here e.g. var speed;
             var s; //how fast the buildings go
@@ -214,6 +240,7 @@
             var width;
             var height;
             var buildings = [];
+            var blocks = [];
 
             Layer(speed, red, green, blue, minWidth, maxWidth, minHeight, maxHeight){ // constructor
                 s = speed;
@@ -238,7 +265,11 @@
                  for (var i = 0; i < buildings.length; i++) {
                      buildings[i].drawBuilding2();
                  }
-             }
+            }
+
+            void drawBlocks() {
+                // draws all the blocks we need. calls block function drawBlock()
+            }
 
             void moveBuildings(){ // function to move the buildings that this layer is responsible for
                 for (var j = 0; j < buildings.length; j++) {
@@ -286,6 +317,10 @@
                 width = random(minw, maxw);
                 height = random(minh, maxh);
                 buildings.push(new Building(sW, sL - height, r, g, b, width, height)); //adds the characteristics of the new building to the buidling list
+            }
+
+            void addBlock() {
+                // pushes a block to your list
             }
 
         } // end of Layer class

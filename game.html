@@ -1,26 +1,26 @@
 <html>
-	<head>
-		<title>I Woke Up Like This!</title>
+    <head>
+        <title>I Woke Up Like This!</title>
 
-		<style type= "text/css">
-			body {
-    			/*background-image: url("city1.gif");
-    			background-size:100% 100%;
+        <style type= "text/css">
+            body {
+                /*background-image: url("city1.gif");
+                background-size:100% 100%;
 */
-        	} 
+            } 
 /*
-	        .pink {
-	        	position:absolute; 
-	        	TOP:600px; 
-	        	LEFT:100px; 
-	        	WIDTH:10px; 
-	        	HEIGHT:10px
-	        }
+            .pink {
+                position:absolute; 
+                TOP:600px; 
+                LEFT:100px; 
+                WIDTH:10px; 
+                HEIGHT:10px
+            }
 */
-        	</style>
+            </style>
 
-		<script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
-		<script type="text/processing" data-processing-target="mycanvas">
+        <script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
+        <script type="text/processing" data-processing-target="mycanvas">
         var L = Math.random()*800 + 100;
         sW=1900;
         sL=800;
@@ -49,9 +49,9 @@
             obstacles = new Layer(7, 255, 25, 117, sW*0.0875, sW*0.0875, sL*0.1475, sL*0.175); //paramenters for the closest layer
             obstacles.addBuilding();
 
-            player = new Player(100, 550);
+            player = new Player(100, 550, 300, 200);
 
-            girlImage = loadImage("girl.jpg");
+            girlImage = loadImage("girlshy.jpg");
         }
 
         void draw() {
@@ -85,7 +85,6 @@
         
         class Player {
             // Player class
-
             var r;
             var g;
             var b;
@@ -93,8 +92,10 @@
             var yposition;
             var jumpState; // 0 if not jumping, 1 if going up, 2 if going down 
             var jumpHeight;
+            var herwidth;//width of image
+            var herheight;//height of image
 
-            Player (x, y){
+            Player (x, y,girlheight, girlwidth){
                 xposition = x;
                 yposition = y;
                 jumpState = 0;
@@ -102,14 +103,12 @@
                 g = 100;
                 b = 100;
                 jumpHeight = 300;
+                herwidth = girlwidth;
+                herheight = girlheight;
             }
 
             void draw() {
-                // fill(r,g,b);
-                // noStroke();
-                // rect(xposition, yposition, 100, 100);
-
-                image(girlImage, xposition, yposition);
+                image(girlImage, xposition, yposition, herwidth, herheight);
             }
 
             void jump() {
@@ -245,16 +244,15 @@
 
         } // end of Layer class
 
-		</script>
+        </script>
         <script type="text/javascript">
-
   </script>
-	</head>
-	<body  background-image= "city1.gif">
+    </head>
+    <body  background-image= "city1.gif">
 
-		<!-- <p class = "pink" id= "girl">
+        <!-- <p class = "pink" id= "girl">
             <img src="ladysign.PNG" width=95 style="position:absolute;left:200; top:675;" height="180" width="15"/><br>
             </p> -->
-		<canvas id="mycanvas"></canvas>
-	</body>
+        <canvas id="mycanvas"></canvas>
+    </body>
 </html>

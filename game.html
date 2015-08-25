@@ -54,8 +54,8 @@
             groundLayer.addBuilding();
 
             obstacles = new Layer(7, 255, 25, 117, sW*0.0875, sW*0.0875, sL*0.1075, sL*0.155); //paramenters for the closest layer
-            // obstacles.addBlock(); // TODO: this is the function we want instead of the below
-            obstacles.addBuilding();
+            obstacles.addBlock(); // TODO: this is the function we want instead of the below
+            // obstacles.addBuilding();
 
             player = new Player(100, 495, 200, 300);
 
@@ -78,9 +78,9 @@
             // groundLayer.drawBuildings();
             // groundLayer.moveBuildings();
 
-            obstacles.drawBuildings();
-            // obstacles.drawBlocks(); // TODO: this is the function we have to write instead of below
-            obstacles.moveBlock();  
+            // obstacles.drawBuildings();
+            obstacles.drawBlocks(); 
+            obstacles.moveBlocks();  
 
             player.draw();
             player.jump();
@@ -231,6 +231,7 @@
 
             Block (i, x, y, w, h, s) {
                 // constructor
+
                 img = i; // an image passed to the constructor 
                 xposition = x;
                 yposition = y;
@@ -239,12 +240,12 @@
                 speed = s;
             }
    
-            void drawBlock() {
+            void draw() {
                 // draws the image for the blocks
                 image(img, xposition, yposition, width, height);     
             }
 
-            void moveBlock() {
+            void move() {
                 // moves the block // EXACTLY LIKE MOVEBUILDING! :)
                 xposition = xposition - speed;
             }
@@ -292,7 +293,7 @@
 
             void drawBuildings(){ // function for layer to draw the buildings this layer is responsible for
                 for (var i = 0; i < buildings.length; i++) {
-                    console.log(i);
+                    // console.log(i);
                     buildings[i].drawBuilding();
                 }
             }
@@ -305,7 +306,19 @@
             }
 
             void drawBlocks() {
-                // draws all the blocks we need. calls block function drawBlock()
+                // draws all the blocks we need. calls block function draw() in block class
+                for (var i = 0; i < blocks.length; i++) {
+                    // console.log(i);
+                    blocks[i].draw();
+                }
+            }
+
+            void addBlock() {
+                // pushes a block to your list
+                // just like addbuilding
+                width = 200;
+                height = 300;
+                blocks.push(new Block(loadImage("girlshy.jpg"), sW, sL - height, width, height, 10)); 
             }
 
             void moveBuildings(){ // function to move the buildings that this layer is responsible for
@@ -314,19 +327,22 @@
                 }
                 var lastbuilding = buildings.length - 1;
                 if ((buildings[lastbuilding].xposition)+(buildings[lastbuilding].w-8)<sW){
+                    console.log("added building");
                     addBuilding();
                 }
             }
             
-            void moveBlock(){ // function to move obstacle blocks (adds "buildings" when they reach the end of the screen, NOT one after another)
-                for (var j = 0; j < buildings.length; j++) {
-                    buildings[j].move(s);
+            void moveBlocks(){ // function to move obstacle blocks (adds "buildings" when they reach the end of the screen, NOT one after another)
+                for (var j = 0; j < blocks.length; j++) {
+                    blocks[j].move();
                 }
-                var lastbuilding = buildings.length - 1;
-                if ((buildings[lastbuilding].xposition)+(buildings[lastbuilding].w-8)<L){
-                    addBuilding();
+                var lastblock = blocks.length - 1;
+                if ((blocks[lastblock].xposition)+(blocks[lastblock].width-8)<L){
+                    console.log("added block");                    
+                    addBlock();
                 }
             }
+
             void hitAll(x, y) {
                 // for all buildings, did the given x and y hit any of them 
                 // for every building, tell me if you hit it
@@ -334,9 +350,9 @@
                 // it will return false if no buildings were hit 
 
                 var collision;
-                for (var i = 0; i < buildings.length; i++) {
+                for (var i = 0; i < blocks.length; i++) {
                     
-                    collision = buildings[i].hit(x, y);
+                    collision = blocks[i].hit(x, y);
                     if (collision === true){
                         alert(facts[Math.floor(Math.random() * facts.length )]); //randomize the facts
                     }
@@ -352,10 +368,6 @@
                 width = random(minw, maxw);
                 height = random(minh, maxh);
                 buildings.push(new Building(sW, sL - height, r, g, b, width, height)); //adds the characteristics of the new building to the buidling list
-            }
-
-            void addBlock() {
-                // pushes a block to your list
             }
 
         } // end of Layer class

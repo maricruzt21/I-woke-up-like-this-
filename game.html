@@ -8,6 +8,7 @@
 
         <script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
         <script type="text/processing" data-processing-target="mycanvas">
+        ;alert("beginning");
         var L = Math.random()*800 + 100;
         sW=1900;
         sL=800;
@@ -22,6 +23,11 @@
         var blockWidth;
         var blockHeight;
 
+        var obstacleActive; //created this so the alert will only pop up once  only good for one obstacle per frame!
+        var facts = ["WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year", "WHOOPS YOU HIT A FACT BOX! Women make up 30% Scientists and engineers working in science and engineering occupations:White women: 20% , Asian women: 5%, Black women: 2%, Hispanic women: 2%, other: 1%", "WHOOPS YOU HIT A FACT BOX! In a study on fifth graders, 10 year old girls and boys told researchers they were dissatisfied with their own bodies after watching a music video by Britney Spears or a clip from the TV show 'Friends'." , "WHOOPS YOU HIT A FACT BOX! One study reports that at age thirteen, 53% of American girls are 'unhappy with their bodies' This grows to 78% by the time girls reach seventeen.', 'WHOOPS YOU HIT A FACT BOX! 72% of U.S. Women report taking different transportation due to harassment.", "WHOOPS YOU HIT A FACT BOX! 85% of U.S. Women report experiencing street harassment for the first time before age 17.", "WHOOPS YOU HIT A FACT BOX! One in every three (37%) articles in leading teen girl magazines also included a focus on appearance, and most of the advertisements (50%) used an appeal to beauty to sell their products."];
+
+
+        // alert("about to start setup");
         void setup() {
             //you can put things like background or size (to set the dimensions of your frame)
             size(sW, sL);
@@ -37,9 +43,10 @@
             frontLayer = new Layer(4, 0, 138, 184, sW*0.0875, sW*0.1125, sL*0.3475, sL*0.475);
             frontLayer.addBuilding();
 
-            ground(4, 34, 87, 34, 1900, 1900, 670, 700);
-            ground.addBuilding();
+            ground = new Layer(0, 98, 56, 76, 1900, 1900, 700, 800);
 
+
+            obstacleActive = true; // Active when an obstacle is active
             obstacles = new Layer(7, 255, 25, 117, sW*0.0875, sW*0.0875, sL*0.1075, sL*0.155); //paramenters for the closest layer
             obstacles.addBuilding();
             
@@ -51,10 +58,10 @@
         void draw() {
             //this is your draw loop i.e., the thing that loops over and over and over until the program is done
             background(204, 235, 245);
-
+            // alert("judt made background and about to start back layer");
             backLayer.drawBuildings();
             backLayer.moveBuildings();
-
+            // alert("middle layer");
             middleLayer.drawBuildings();
             middleLayer.moveBuildings();
 
@@ -62,7 +69,7 @@
             frontLayer.moveBuildings();
 
             ground.drawBuildings();
-            ground.moveBuildings();
+            // ground.moveBuildings();
 
             // console.log("obstacles");
             obstacles.drawBuildings();
@@ -190,8 +197,9 @@
                 // returns true if hit
                 // returns false if not
                 var collision;
-                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230))){
+                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230)) && obstacleActive){
                     collision = true;
+                    obstacleActive = false;
                 }
                 else{
                     collision = false;
@@ -256,6 +264,7 @@
                 }
                 var lastbuilding = buildings.length - 1;
                 if ((buildings[lastbuilding].xposition)+(buildings[lastbuilding].w-8)<L){
+                    obstacleActive = true; 
                     addBuilding();
                 }
             }
@@ -270,8 +279,7 @@
                     
                     collision = buildings[i].hit(x, y);
                     if (collision === true){
-                        alert("WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year");
-
+                        alert(facts[Math.floor(Math.random() * facts.length )]); //randomize the facts
                     }
                     else {
                         console.log("keep going");  

@@ -316,9 +316,12 @@
             void addBlock() {
                 // pushes a block to your list
                 // just like addbuilding
+
+                // TODO: randomize 0-2 and use if statements to load different images into the constructor
+
                 width = 200;
                 height = 300;
-                blocks.push(new Block(loadImage("girlshy.jpg"), sW, sL - height, width, height, 10)); 
+                blocks.push(new Block(loadImage("hydrant.png"), sW, sL - height, width, height, 10)); 
             }
 
             void moveBuildings(){ // function to move the buildings that this layer is responsible for

@@ -108,11 +108,13 @@
             var yposition;
             var jumpState; // 0 if not jumping, 1 if going up, 2 if going down 
             var jumpHeight;
+            var startingy; // original y position
             var hit = false;
 
             Player (x, y, width, height){
                 xposition = x;
                 yposition = y;
+                startingy = y;
                 girlX = xposition;
                 girlY = yposition;
                 jumpState = 0;
@@ -142,11 +144,11 @@
                     // if we have reached the jump height
                     jumpState = 2; 
                 }
-                else if (jumpState === 2 && yposition < 550) {
+                else if (jumpState === 2 && yposition < startingy) {
                     // if we're falling and haven't reached the ground yet
                     yposition = yposition + 10;
                 }
-                else if (jumpState === 2 && yposition >= 550) {
+                else if (jumpState === 2 && yposition >= startingy) {
                     // if we're falling and reached the ground
                     jumpState = 0; 
                 }

@@ -22,6 +22,19 @@
         var blockWidth;
         var blockHeight;
 
+        var facts = ["WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year", "WHOOPS YOU HIT A FACT BOX! Women make up 30% Scientists and engineers working in science and engineering occupations:White women: 20% , Asian women: 5%, Black women: 2%, Hispanic women: 2%, other: 1%", "WHOOPS YOU HIT A FACT BOX! In a study on fifth graders, 10 year old girls and boys told researchers they were dissatisfied with their own bodies after watching a music video by Britney Spears or a clip from the TV show 'Friends'." , "WHOOPS YOU HIT A FACT BOX! One study reports that at age thirteen, 53% of American girls are 'unhappy with their bodies' This grows to 78% by the time girls reach seventeen.', 'WHOOPS YOU HIT A FACT BOX! 72% of U.S. Women report taking different transportation due to harassment.", "WHOOPS YOU HIT A FACT BOX! 85% of U.S. Women report experiencing street harassment for the first time before age 17.", "WHOOPS YOU HIT A FACT BOX! One in every three (37%) articles in leading teen girl magazines also included a focus on appearance, and most of the advertisements (50%) used an appeal to beauty to sell their products."];
+
+        // fact1 = loadImage("fact1.jpg");//added fact images
+        // fact2 = loadImage("fact2.jpg");
+        // fact3 = loadImage("fact3.jpg");
+        // fact4 = loadImage("fact4.jpg");
+        // fact5 = loadImage("fact5.jpg");
+        // fact6 = loadImage("fact6.jpg");
+        // fact7 = loadImage("fact7.jpg");
+
+        // var facts = [image(fact1, 950, 400), image(fact2, 950, 400), image(fact3, 950, 400), image(fact4, 950, 400), image(fact5, 950, 400), image(fact6, 950, 400), image(fact7, 950, 400),];
+        // alert("setup");
+
         void setup() {
             //you can put things like background or size (to set the dimensions of your frame)
             size(sW, sL);
@@ -302,12 +315,10 @@
                     collision = buildings[i].hit(x, y);
                     if (collision === true){
                         alert("WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year");
-
                     }
                     else {
                         console.log("keep going");  
                     }
-                    
                 }
                     
             }

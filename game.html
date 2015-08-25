@@ -8,9 +8,6 @@
 
         <script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
         <script type="text/processing" data-processing-target="mycanvas">
-        
-        // alert("beginning");
-
         var L = Math.random()*800 + 100;
         sW=1900;
         sL=800;
@@ -24,19 +21,7 @@
         var girlY;
         var blockWidth;
         var blockHeight;
-        
-        var facts = ["WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year", "WHOOPS YOU HIT A FACT BOX! Women make up 30% Scientists and engineers working in science and engineering occupations:White women: 20% , Asian women: 5%, Black women: 2%, Hispanic women: 2%, other: 1%", "WHOOPS YOU HIT A FACT BOX! In a study on fifth graders, 10 year old girls and boys told researchers they were dissatisfied with their own bodies after watching a music video by Britney Spears or a clip from the TV show 'Friends'." , "WHOOPS YOU HIT A FACT BOX! One study reports that at age thirteen, 53% of American girls are 'unhappy with their bodies' This grows to 78% by the time girls reach seventeen.', 'WHOOPS YOU HIT A FACT BOX! 72% of U.S. Women report taking different transportation due to harassment.", "WHOOPS YOU HIT A FACT BOX! 85% of U.S. Women report experiencing street harassment for the first time before age 17.", "WHOOPS YOU HIT A FACT BOX! One in every three (37%) articles in leading teen girl magazines also included a focus on appearance, and most of the advertisements (50%) used an appeal to beauty to sell their products."];
 
-        // fact1 = loadImage("fact1.jpg");//added fact images
-        // fact2 = loadImage("fact2.jpg");
-        // fact3 = loadImage("fact3.jpg");
-        // fact4 = loadImage("fact4.jpg");
-        // fact5 = loadImage("fact5.jpg");
-        // fact6 = loadImage("fact6.jpg");
-        // fact7 = loadImage("fact7.jpg");
-
-        // var facts = [image(fact1, 950, 400), image(fact2, 950, 400), image(fact3, 950, 400), image(fact4, 950, 400), image(fact5, 950, 400), image(fact6, 950, 400), image(fact7, 950, 400),];
-        // alert("setup");
         void setup() {
             //you can put things like background or size (to set the dimensions of your frame)
             size(sW, sL);
@@ -52,11 +37,14 @@
             frontLayer = new Layer(4, 0, 138, 184, sW*0.0875, sW*0.1125, sL*0.3475, sL*0.475);
             frontLayer.addBuilding();
 
+            groundLayer = new Layer(4, 34, 87, 34, 1900, 1900, 670, 700);
+            groundLayer.addBuilding();
+
             obstacles = new Layer(7, 255, 25, 117, sW*0.0875, sW*0.0875, sL*0.1075, sL*0.155); //paramenters for the closest layer
             // obstacles.addBlock(); // TODO: this is the function we want instead of the below
             obstacles.addBuilding();
 
-            player = new Player(100, 495, 200, 300);
+            player = new Player(100, 550, 200, 300);
 
             girlImage = loadImage("girlshy.jpg");
         }
@@ -169,7 +157,6 @@
             var w; //how fat the building
             var xposition; // x location
             var yposition; // y location
-            var obstacleActive;
 
             Building (x, y, red, green, blue, width, height){ 
                 // constructor  
@@ -179,8 +166,7 @@
                 g = green;
                 b = blue;
                 xposition= x; // ^^
-                yposition = y; //^^   
-                obstacleActive = true; 
+                yposition = y; //^^     
             }
             
             void drawBuilding(){
@@ -205,9 +191,8 @@
                 // returns true if hit
                 // returns false if not
                 var collision;
-                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230)) && obstacleActive){
+                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230))){
                     collision = true;
-                    obstacleActive = false; 
                 }
                 else{
                     collision = false;
@@ -316,7 +301,7 @@
                     
                     collision = buildings[i].hit(x, y);
                     if (collision === true){
-                        alert(facts[Math.floor(Math.random() * facts.length )]); //randomize the facts
+                        alert("WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year");
 
                     }
                     else {

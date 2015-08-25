@@ -21,6 +21,16 @@
         var girlY;
         var blockWidth;
         var blockHeight;
+        var obstacleActive; //created this so the alert will only pop up once  only good for one obstacle per frame!
+        fact1 = loadImage("fact1.jpg");//added fact images
+        fact2 = loadImage("fact2.jpg");
+        fact3 = loadImage("fact3.jpg");
+        fact4 = loadImage("fact4.jpg");
+        fact5 = loadImage("fact5.jpg");
+        fact6 = loadImage("fact6.jpg");
+        fact7 = loadImage("fact7.jpg");
+
+        var facts = [image(fact1, 950, 400), image(fact2, 950, 400), image(fact3, 950, 400), image(fact4, 950, 400), image(fact5, 950, 400), image(fact6, 950, 400), image(fact7, 950, 400),];
 
         void setup() {
             //you can put things like background or size (to set the dimensions of your frame)
@@ -39,7 +49,7 @@
 
             groundLayer = new Layer(4, 34, 87, 34, 1900, 1900, 670, 700);
             groundLayer.addBuilding();
-
+            obstacleActive = true;
             obstacles = new Layer(7, 255, 25, 117, sW*0.0875, sW*0.0875, sL*0.1075, sL*0.155); //paramenters for the closest layer
             // obstacles.addBlock(); // TODO: this is the function we want instead of the below
             obstacles.addBuilding();
@@ -191,8 +201,9 @@
                 // returns true if hit
                 // returns false if not
                 var collision;
-                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230))){
+                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230)) && obstacleActive){
                     collision = true;
+                    obstacleActive = false; 
                 }
                 else{
                     collision = false;
@@ -278,6 +289,7 @@
                 var lastbuilding = buildings.length - 1;
                 if ((buildings[lastbuilding].xposition)+(buildings[lastbuilding].w-8)<sW){
                     addBuilding();
+                    obstacleActive = true;
                 }
             }
             

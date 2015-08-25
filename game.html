@@ -170,6 +170,7 @@
             var w; //how fat the building
             var xposition; // x location
             var yposition; // y location
+            var obstacleActive; // true if never touched, false if touched player ever
 
             Building (x, y, red, green, blue, width, height){ 
                 // constructor  
@@ -179,7 +180,9 @@
                 g = green;
                 b = blue;
                 xposition= x; // ^^
-                yposition = y; //^^     
+                yposition = y; //^^  
+                obstacleActive = true; 
+   
             }
             
             void drawBuilding(){
@@ -204,8 +207,9 @@
                 // returns true if hit
                 // returns false if not
                 var collision;
-                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230))){
+                if (((xposition >= x - 100) && (xposition <= x + 100)) && ((yposition >= y - 230) && (yposition <= y + 230)) && obstacleActive){
                     collision = true;
+                    obstacleActive = false; 
                 }
                 else{
                     collision = false;

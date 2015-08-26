@@ -22,7 +22,7 @@
         var blockWidth;
         var blockHeight;
 
-        var facts = ["WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year", "WHOOPS YOU HIT A FACT BOX! Women make up 30% Scientists and engineers working in science and engineering occupations:White women: 20% , Asian women: 5%, Black women: 2%, Hispanic women: 2%, other: 1%", "WHOOPS YOU HIT A FACT BOX! In a study on fifth graders, 10 year old girls and boys told researchers they were dissatisfied with their own bodies after watching a music video by Britney Spears or a clip from the TV show 'Friends'." , "WHOOPS YOU HIT A FACT BOX! One study reports that at age thirteen, 53% of American girls are 'unhappy with their bodies' This grows to 78% by the time girls reach seventeen.', 'WHOOPS YOU HIT A FACT BOX! 72% of U.S. Women report taking different transportation due to harassment.", "WHOOPS YOU HIT A FACT BOX! 85% of U.S. Women report experiencing street harassment for the first time before age 17.", "WHOOPS YOU HIT A FACT BOX! One in every three (37%) articles in leading teen girl magazines also included a focus on appearance, and most of the advertisements (50%) used an appeal to beauty to sell their products."];
+        var facts = ["WHOOPS! YOU HIT A FACT BOX! 96% of American women of 40 years old and younger experienced street harassment in the past year", "WHOOPS YOU HIT A FACT BOX! Women make up 30% Scientists and engineers working in science and engineering occupations:White women: 20% , Asian women: 5%, Black women: 2%, Hispanic women: 2%, other: 1%", "WHOOPS YOU HIT A FACT BOX! In a study on fifth graders, 10 year old girls and boys told researchers they were dissatisfied with their own bodies after watching a music video by Britney Spears or a clip from the TV show 'Friends'." , "WHOOPS YOU HIT A FACT BOX! One study reports that at age thirteen, 53% of American girls are 'unhappy with their bodies' This grows to 78% by the time girls reach seventeen.", "WHOOPS YOU HIT A FACT BOX! 72% of U.S. Women report taking different transportation due to harassment.", "WHOOPS YOU HIT A FACT BOX! 85% of U.S. Women report experiencing street harassment for the first time before age 17.", "WHOOPS YOU HIT A FACT BOX! One in every three (37%) articles in leading teen girl magazines also included a focus on appearance, and most of the advertisements (50%) used an appeal to beauty to sell their products."];
 
         // fact1 = loadImage("fact1.jpg");//added fact images
         // fact2 = loadImage("fact2.jpg");
@@ -316,12 +316,15 @@
             void addBlock() {
                 // pushes a block to your list
                 // just like addbuilding
+                
+                var x = Math.floor((Math.random() * 2) + 0);
+                var images = ['trashcan.png', 'hydrant.png'];
 
                 // TODO: randomize 0-2 and use if statements to load different images into the constructor
 
                 width = 200;
-                height = 200;
-                blocks.push(new Block(loadImage("trashcan.png"), sW, sL - height, width, height, 10)); 
+                height = 170;
+                blocks.push(new Block(loadImage(images[x]), sW, sL - height, width, height, 10)); 
             }
 
             void moveBuildings(){ // function to move the buildings that this layer is responsible for
